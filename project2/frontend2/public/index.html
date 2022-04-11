@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <title>PlatformaEdukacyjna</title>
+</head>
+
+<body>
+    <div id="container">
+        <main id="main">
+            <form class="hidden" id="login" action="" method="">
+                <h1 id="header">Login</h1>
+                <p id="form_log"><input type="text" id = "input" required placeholder="Login"></p>
+                <p id="form_log"><input type="password" id = "input" required placeholder="Password"></p>
+                <p>
+                    <select name="position" size="1">
+                        <option>Teacher</option>
+                        <option>Student</option>
+                    </select>
+                </p>
+                <p id="form_log"><input type="submit" id="submitlog" value="Login"></p>
+                <p>Don't have an account? <a href="./" id="createAcc" >Register here</a></p>
+                <p><a id="getPassword" >Forgot your password?</a></p>
+            </form>
+            <form id="createAccount" action="/user/add" method="post">
+                <h1 id="header">Register</h1>
+                <p id="form_reg"><input type="text" id = "output" name="login" required placeholder="Login"></p>
+                <p id="form_reg"><input type="password" id = "output" name="password" required placeholder="Password"></p>
+                <p id="form_reg"><input type="email" id = "output" name="mail" required placeholder="e-mail"></p>
+                <p>
+                    <select name="position" size="1">
+                        <option>Teacher</option>
+                        <option>Student</option>
+                    </select>
+                </p>
+                <p id="form_reg"><input type="submit" id="submitreg" value="Register"></p>
+                <p>Already have an account? <a href="./" id="signIn" >Login here</a></p>
+            </form>
+        </main>
+    </div>
+    <script src="js/javascp.js"></script>
+</body>
+
+</html>
