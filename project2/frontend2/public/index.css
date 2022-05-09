@@ -47,8 +47,8 @@ body
     margin-top: 0; 
     margin-bottom: 0;
 }
-#input, 
-#output
+.input, 
+.output
 {
     width: 50%;
     padding: 1%;

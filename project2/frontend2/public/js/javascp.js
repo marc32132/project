@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
         createAccountForm.classList.add("hidden");
     });
 
-    document.querySelector("#submitlog").addEventListener("click", ev => {
-        ev.preventDefault();
-        location.href = "page.html";
-    });
+    // document.querySelector("#submitlog").addEventListener("click", ev => {
+    //     ev.preventDefault();
+    //     location.href = "page.html";
+    // });
 });

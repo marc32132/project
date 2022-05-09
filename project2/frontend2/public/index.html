@@ -10,29 +10,29 @@
 <body>
     <div id="container">
         <main id="main">
-            <form class="hidden" id="login" action="" method="">
+            <form  id="login" action="/user/login" method="post">
                 <h1 id="header">Login</h1>
-                <p id="form_log"><input type="text" id = "input" required placeholder="Login"></p>
-                <p id="form_log"><input type="password" id = "input" required placeholder="Password"></p>
+                <p id="form_log"><input type="text" name ="login" class = "input" required placeholder="Login"></p>
+                <p id="form_log"><input type="password" name = "password" class = "input" required placeholder="Password"></p>
                 <p>
                     <select name="position" size="1">
-                        <option>Teacher</option>
                         <option>Student</option>
+                        <option>Teacher</option>
                     </select>
                 </p>
                 <p id="form_log"><input type="submit" id="submitlog" value="Login"></p>
                 <p>Don't have an account? <a href="./" id="createAcc" >Register here</a></p>
                 <p><a id="getPassword" >Forgot your password?</a></p>
             </form>
-            <form id="createAccount" action="/user/add" method="post">
+            <form id="createAccount" class="hidden" action="/user/register" method="post">
                 <h1 id="header">Register</h1>
-                <p id="form_reg"><input type="text" id = "output" name="login" required placeholder="Login"></p>
-                <p id="form_reg"><input type="password" id = "output" name="password" required placeholder="Password"></p>
-                <p id="form_reg"><input type="email" id = "output" name="mail" required placeholder="e-mail"></p>
+                <p id="form_reg"><input type="text" class = "output" name="login" required placeholder="Login"></p>
+                <p id="form_reg"><input type="password" class = "output" name="password" required placeholder="Password"></p>
+                <p id="form_reg"><input type="email" class = "output" name="mail" required placeholder="e-mail"></p>
                 <p>
                     <select name="position" size="1">
-                        <option>Teacher</option>
                         <option>Student</option>
+                        <option>Teacher</option>
                     </select>
                 </p>
                 <p id="form_reg"><input type="submit" id="submitreg" value="Register"></p>

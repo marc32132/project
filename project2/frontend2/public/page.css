@@ -34,3 +34,13 @@ button
 {
     margin-top: 5px;
 }
+.hidden
+{
+    display: none;
+}
+.imag
+{
+    height: 400px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
