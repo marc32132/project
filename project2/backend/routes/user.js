@@ -16,9 +16,10 @@ router.route('/register').post((req, res) => {
     const login = req.body.login;
     const password = hash;
     const mail = req.body.mail;
-        const newUser = new User({login, password, mail,});
+    const position = req.body.position;
+        const newUser = new User({login, password, mail, position});
         
-        newUser.save().then(() => res.json('User registered')).catch(err => res.status(400).json('Error: ' + err));   
+        newUser.save().then(() => res.redirect('../index.html')).catch(err => res.status(400).json('Error: ' + err));   
      });
     
 });
@@ -26,13 +27,14 @@ router.route('/register').post((req, res) => {
 router.route('/login').post((req, res) => {
     const login = req.body.login;
     const password = req.body.password;
-
+    // const position = req.body.position;
+    
     User.findOne({login: login}).then((foundUser) =>{
         if(foundUser){
                 bcrypt.compare(password, foundUser.password).then( function(result){
                    
                     if(result === true){
-                        res.redirect('../page.html');
+                        res.redirect('../admin-page.html');
                     } 
                     else{
                         res.send("wrong password");
@@ -44,7 +46,9 @@ router.route('/login').post((req, res) => {
                 res.send("wrong username");
             }
         }).catch(err => res.status(400).json('Error: ' + err));
+    
 });
+
 module.exports = router;
 
 

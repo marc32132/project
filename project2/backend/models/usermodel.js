@@ -16,7 +16,10 @@ const userSchema = new Schema({
     mail: {
         type: String,
         required: true,
-    }
+    },
+    // position: {
+    //     type: String
+    // }
 });
 
 const User = mongoose.model('User', userSchema);
