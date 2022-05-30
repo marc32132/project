@@ -9,8 +9,9 @@ manage.route("/allusers")
 .get(function(req, res){
   admin.find(function(err, foundUsers){
     if (!err) {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify( foundUsers , null, 3));
+        // res.setHeader('Content-Type', 'application/json');
+        // res.send(JSON.stringify( foundUsers , null, 3));
+        res.json(foundUsers);
     } else {
       res.send(err);
     }
@@ -18,13 +19,15 @@ manage.route("/allusers")
 });
 
 manage.route("/allusersDel")
-.delete(function(req, res){
-
-    admin.deleteOne(
-      {login: req.params.login},
-      function(err){
+.post(function(req, res){
+  const login = req.body.login;
+    admin.findOneAndDelete(
+      {login: login},
+      function(err, user){
         if (!err){
-          res.send("Successfully deleted the corresponding user.");
+          // res.send("Successfully deleted the corresponding user.");
+          console.log("deleted user: ", user);
+          res.redirect('back');
         } else {
           res.send(err);
         }

@@ -27,14 +27,19 @@ router.route('/register').post((req, res) => {
 router.route('/login').post((req, res) => {
     const login = req.body.login;
     const password = req.body.password;
-    // const position = req.body.position;
+    const position = req.body.position;
     
     User.findOne({login: login}).then((foundUser) =>{
         if(foundUser){
                 bcrypt.compare(password, foundUser.password).then( function(result){
                    
                     if(result === true){
-                        res.redirect('../admin-page.html');
+                        if(login == 'admin')
+                        res.redirect('../admin-page-students.html');
+                        else if(foundUser.position == position && position == 'Teacher')
+                        res.redirect('../teacher-page.html');
+                        else
+                        res.redirect('../student-page.html');
                     } 
                     else{
                         res.send("wrong password");
@@ -58,7 +63,7 @@ module.exports = router;
 //     } else {
 //         if(foundUser){
 //             if(foundUser.password === password){
-//                 res.redirect('../page.html');
+//                 res.redirect('../.html');
 //             } else{
 //                 console.log("wrong username or password");
 //             }
@@ -75,7 +80,7 @@ module.exports = router;
     // User.findOne({login: login}).then((foundUser) =>{
     //         if(foundUser){
     //             if(foundUser.password === password){
-    //                 res.redirect('../page.html');
+    //                 res.redirect('../.html');
     //             }
     //         }
     //         else{

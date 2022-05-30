@@ -11,6 +11,7 @@
     margin-right: auto;
     background-color: rgb(194, 193, 193);
     text-align: center;
+    overflow: auto;
 }
 body
 {
@@ -44,3 +45,36 @@ button
     margin-left: 100px;
     margin-right: 100px;
 }
+table, th , td
+{
+    border: 1px solid;
+  
+    
+}
+table
+{
+    width: 100%;
+    margin-top: 25px;
+   
+   
+}
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  .collapsible:hover {
+    background-color: #ccc;
+  }
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }

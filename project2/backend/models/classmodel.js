@@ -2,27 +2,25 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-    login: {
+const classSchema = new Schema({
+    className: {
         type: String,
         required: true,
         trim: true,
     },
-    password: {
+    groupNumber: {
         type: String,
         required: true,
         trim: true,
     },
-    mail: {
-        type: String,
+    maxParticip: {
+        type: Number, min: 15, max: 40,
         required: true,
     },
-    position: {
-        type: String,
-        enum: ['Student', 'Teacher'],
-    }
+    participants: [String],
+        
 });
 
-const User = mongoose.model('User', userSchema);
+const Class = mongoose.model('Class', classSchema);
 
-module.exports = User;
+module.exports = Class;

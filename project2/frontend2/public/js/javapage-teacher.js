@@ -28,25 +28,42 @@ fetch("/class/allclasses")
     return response.json();
 })
 .then(function(classeOs){
-    let out ="";
     
-    let placeholder = document.querySelector("#classDisplay");
-    
+    let out2 ="";
+
+    let placeholder2 = document.querySelector("#classDisplay2");
     
     for(let classO of classeOs){
-            out += `
+           
+            out2 += `
             <tr>
                 <td>${classO.className}</td>
                 <td>${classO.groupNumber}</td>
-                <td><form action="/class/updateClass" method="post">
-                <input class="hidden" type="text" name="className" value="${classO.className}">
-                <input type="text" name="participants" placeholder="name">
-                <input type="submit" value="join">
-              </form></td>
+                <td>
+                  <p>${classO.participants}</p>
+                </td>
             <tr>
             `
-          
         }
     
-    placeholder.innerHTML = out;
+   
+    placeholder2.innerHTML = out2;
 });
+{
+    var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+}
+{/* <button type="button" class="collapsible">Participants</button>
+                <div class="content"></div></div> */}
