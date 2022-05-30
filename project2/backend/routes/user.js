@@ -5,6 +5,7 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 let User = require('../models/usermodel');
+const { findOne } = require('../models/usermodel');
 
 router.route('/').get((req, res) => {
     User.find().then(user => res.json(user)).catch(err => res.status(400).json('Error: ' + err));
@@ -53,6 +54,35 @@ router.route('/login').post((req, res) => {
         }).catch(err => res.status(400).json('Error: ' + err));
     
 });
+
+router.route('/updateUser').post((req, res) =>{
+    const userName = req.body.login;
+    const password = req.body.password;
+    const password2 = req.body.password2;
+    if(password==password2){
+    User.findOne({login: userName}).then((foundUser) =>{
+        if(foundUser){
+            bcrypt.hash(password, saltRounds, function(err, hash){
+            User.findOneAndUpdate({login: userName}, {password: hash}, 
+                function(err, passw){
+                    if(!err){
+                        console.log("password changed for user: ", userName);
+                        res.redirect('back');
+                    } else {
+                        res.send(err);
+                    }
+                });});
+        } else{
+            res.send("wrong username");
+        }
+    }).catch(err => res.status(400).json('Error: ' + err));
+}else {
+    res.send("passwords don't match");
+};
+});
+ 
+    
+
 
 module.exports = router;
 
