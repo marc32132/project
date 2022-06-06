@@ -1,5 +1,5 @@
-document.getElementById("logout").onclick = function () {
-    location.href = "index.html";
+document.getElementById("logoutLink").onclick = function () {
+    document.getElementById("logout").submit();
 };
 fetch("/admin/allusers")
 .then(function(response){

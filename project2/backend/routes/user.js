@@ -1,11 +1,15 @@
 const router = require('express').Router();
-// const passport = require('passport');
+const passport = require('passport');
 // const session = require("express-session");
 // const passportLocalMongoose = require('passport-local-mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require('jsonwebtoken');
+// const cookieParser = require('cookie-parser');
 let User = require('../models/usermodel');
-const { findOne } = require('../models/usermodel');
+
+require('dotenv').config();
+
 
 router.route('/').get((req, res) => {
     User.find().then(user => res.json(user)).catch(err => res.status(400).json('Error: ' + err));
@@ -25,6 +29,19 @@ router.route('/register').post((req, res) => {
     
 });
 
+// router.route('/login').post((req, res, next) => {
+//     passport.authenticate('local',{ 
+//         successRedirect: '../admin-page-students.html' || '../teacher-page.html' || '../student-page.html',
+//         failureRedirect: '/index.html'
+//     })(req, res, next) 
+// });
+
+router.route('/logout').get((req, res) =>{
+    // refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+    res.cookie('jwt','', {maxAge: 1});
+    res.redirect('/index.html');
+})
+
 router.route('/login').post((req, res) => {
     const login = req.body.login;
     const password = req.body.password;
@@ -35,12 +52,42 @@ router.route('/login').post((req, res) => {
                 bcrypt.compare(password, foundUser.password).then( function(result){
                    
                     if(result === true){
-                        if(login == 'admin')
+                        if(foundUser.position == 'admin'){
+                        
+
+                        const user = {name: login, position: foundUser.position}
+
+                        const accessToken = generateAccessToken(user);
+                        // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+                        // res.json({accessToken: accessToken})
+                        res.cookie('jwt', accessToken, {maxAge: 1000*60*10});
                         res.redirect('../admin-page-students.html');
-                        else if(foundUser.position == position && position == 'Teacher')
+                        }
+                        else if(foundUser.position == position && position == 'Teacher'){
+                        
+                        const user = {name: login, position: foundUser.position}
+
+                        const accessToken = generateAccessToken(user);
+                        
+                        // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+                        res.cookie('jwt', accessToken, {maxAge: 1000*60*10});
                         res.redirect('../teacher-page.html');
-                        else
+                        }
+                        else if(foundUser.position == position && position == 'Student'){
+                        const user = {name: login, position: foundUser.position}
+
+                        const accessToken = generateAccessToken(user);
+                        // const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+                        res.cookie('jwt', accessToken, {maxAge: 1000*60*10});
                         res.redirect('../student-page.html');
+                        // res.json({
+                        //     accessToken: accessToken 
+                        //     // refreshToken: refreshToken
+                        // })
+                        }
+                        else{
+                            res.send("wrong position")
+                        }
                     } 
                     else{
                         res.send("wrong password");
@@ -54,6 +101,10 @@ router.route('/login').post((req, res) => {
         }).catch(err => res.status(400).json('Error: ' + err));
     
 });
+
+function generateAccessToken(user){
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' })
+}
 
 router.route('/updateUser').post((req, res) =>{
     const userName = req.body.login;
@@ -81,8 +132,9 @@ router.route('/updateUser').post((req, res) =>{
 };
 });
  
-    
-
+router.route('/currentUser').get((req,res) => {
+    res.json(req.user); 
+})
 
 module.exports = router;
 
