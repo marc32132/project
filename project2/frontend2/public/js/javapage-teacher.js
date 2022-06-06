@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // });
     
 });
+
+var user;
+fetch("/currentUser")
+.then(res => res.json())
+.then(data => user = data)
+.then(() => console.log(user))
+
 fetch("/class/allclasses")
 .then(function(response){
     return response.json();
@@ -45,9 +52,11 @@ fetch("/class/allclasses")
             <tr>
             `
         }
-    
+    console.log(user.name);
    
     placeholder2.innerHTML = out2;
+    let nameOfUser = document.querySelector("#nameTagUser");
+    nameOfUser.innerHTML = `Witaj  ${user.name}`;
 });
 {
     var coll = document.getElementsByClassName("collapsible");

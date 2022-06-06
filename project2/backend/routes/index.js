@@ -36,5 +36,9 @@ router.get('/teacher-page-groups.html', authenticateToken, (req, res, next) => {
         next();
     }
 })
+router.get('/currentUser', authenticateToken,(req,res) => {
+    
+    res.json(req.user); 
+})
 
 module.exports = router;

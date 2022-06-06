@@ -132,9 +132,7 @@ router.route('/updateUser').post((req, res) =>{
 };
 });
  
-router.route('/currentUser').get((req,res) => {
-    res.json(req.user); 
-})
+
 
 module.exports = router;
 

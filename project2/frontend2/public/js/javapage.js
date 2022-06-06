@@ -23,34 +23,39 @@ document.getElementById("logoutLink").onclick = function () {
 //     // });
     
 // });
-Promise.all([
-    fetch("/class/allclasses"),
-    fetch("/user/currentUser")
-])
-.then(function(response){
-    return response[0].json(), response[1].json;
-    
-})
-.then(function(classeOs, user){
-    let out ="";
-    
-    let placeholder = document.querySelector("#classDisplay");
-    
-    
-    for(let classO of classeOs){
-            out += `
-            <tr>
-                <td>${classO.className}</td>
-                <td>${classO.groupNumber}</td>
-                <td><form action="/class/updateClass" method="post">
-                <input class="hidden" type="text" name="className" value="${classO.className}">
-                <input type="text" name="participants" placeholder="name" value="${user.name}">
-                <input type="submit" value="join">
-              </form></td>
-            <tr>
-            `
-          
-        }
-    
-    placeholder.innerHTML = out;
-});
+ // let placeholder = document.querySelector("#classDisplay");
+ var user;
+ fetch("/currentUser")
+ .then(res => res.json())
+ .then(data => user = data)
+ .then(() => console.log(user))
+
+    fetch("/class/allclasses")
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(classeOs){
+        let out ="";
+        let placeholder = document.querySelector("#classDisplay");
+  
+        for(let classO of classeOs){
+                out += `
+                <tr>
+                    <td>${classO.className}</td>
+                    <td>${classO.groupNumber}</td>
+                    <td><form action="/class/updateClass" method="post">
+                    <input class="hidden" type="text" name="className" value="${classO.className}">
+                    <input class="hidden" type="text" name="participants" placeholder="name" value="${user.name}">
+                    <input type="submit" value="join">
+                  </form></td>
+                <tr>
+                `
+              
+            }
+        
+        
+        let nameOfUser = document.querySelector("#nameTagUser");
+        nameOfUser.innerHTML = `Witaj  ${user.name}`; 
+        placeholder.innerHTML = out;
+    });
+   
