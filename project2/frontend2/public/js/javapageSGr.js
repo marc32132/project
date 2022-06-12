@@ -1,6 +1,9 @@
+// const { find } = require("../../../backend/models/classmodel");
+
 document.getElementById("logoutLink").onclick = function () {
     document.getElementById("logout").submit();
 };
+
 // document.addEventListener("DOMContentLoaded", () => {
 //     const glowaForm = document.querySelector("#container");
 //     const wiadoForm = document.querySelector("#wiadom")
@@ -36,30 +39,34 @@ document.getElementById("logoutLink").onclick = function () {
     })
     .then(function(classeOs){
         let out ="";
-        let placeholder = document.querySelector("#classDisplay");
-  
+        let placeholder = document.querySelector("#classDisplayStudent");
+        // let students;
+        
         for(let classO of classeOs){
-            
-                if(classO.participants.includes(user.name) ) {
-                    console.log("username: ", user.name);
-                    continue;
-                     }
-               
-                out += `
-                <tr>
-                    <td>${classO.className}</td>
-                    <td>${classO.groupNumber}</td>
-                    <td><form action="/class/updateClass" method="post">
-                    <input class="hidden" type="text" name="className" value="${classO.className}">
-                    <input class="hidden" type="text" name="groupNumber" value="${classO.groupNumber}">
-                    <input class="hidden" type="text" name="participants" placeholder="name" value="${user.name}">
-                    <input class="btn btn-secondary" type="submit" value="join">
-                  </form></td>
-                <tr>
-                `
-        }
-                
-            
+                // classO.participants.forEach(student => {
+                //     if(student != user.name) {
+                        
+                //         return;}})
+                    // students = classO.participants;
+                    // students.forEach
+                    if(classO.participants.includes(user.name) ) {
+                        console.log("username: ", user.name);
+                    out += `
+                    <tr>
+                        <td>${classO.className}</td>
+                        <td>${classO.groupNumber}</td>
+                        <td><form action="/class/removeParticipant" method="post">
+                        <input class="hidden" type="text" name="className" value="${classO.className}">
+                        <input class="hidden" type="text" name="groupNumber" value="${classO.groupNumber}">
+                        <input class="hidden" type="text" name="student" placeholder="student" value="${user.name}">
+                        <input class="btn btn-secondary" type="submit" value="leave">
+                        
+                        </td>
+                    <tr>
+                    `
+                    }
+              
+            }
         
         
         let nameOfUser = document.querySelector("#nameTagUser");

@@ -35,6 +35,20 @@ manage.route("/allusersDel")
     );
   });
 
+  manage.route("/userPosition")
+  .post(function(req,res){
+    const login = req.body.login;
+    const position = req.body.position;
+    admin.findOneAndUpdate({login: login}, {position: position}, function(err, posit){
+      if(!err){
+          console.log("position changed for: ", login, ", from: ", position, " to: ", posit);
+          res.redirect('back');
+      } else {
+          res.send(err);
+      }
+  });
+  });
+
 module.exports = manage;
 
 

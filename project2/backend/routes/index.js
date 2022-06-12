@@ -21,6 +21,13 @@ router.get('/admin-page-teachers.html', authenticateToken, (req, res, next) => {
         next();
     }
 })
+
+router.get('/admin-page-groups.html', authenticateToken, (req, res, next) => {
+    if(req.user.position == 'admin'){
+        next();
+    }
+})
+
 router.get('/student-page.html', authenticateToken, (req, res, next) => {
     if(req.user.position == 'Student'){
         next();

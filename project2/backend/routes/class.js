@@ -21,8 +21,9 @@ classesOp.route("/allclasses")
 classesOp.route("/allclassesDel")
 .post(function(req, res){
   const className = req.body.className;
+  const groupNumber = req.body.groupNumber;
     classes.findOneAndDelete(
-      {className: className},
+      {className: className, groupNumber: groupNumber},
       function(err, classes){
         if (!err){
           // res.send("Successfully deleted the corresponding user.");
@@ -47,17 +48,33 @@ classesOp.route('/createClass').post((req, res) => {
 });
 classesOp.route('/updateClass').post((req, res) =>{
     const className = req.body.className;
+    const groupNumber = req.body.groupNumber;
     const participants = req.body.participants;
-    classes.findOneAndUpdate({className: className}, {$push:{participants: participants,}}, 
+    classes.findOneAndUpdate({className: className, groupNumber: groupNumber}, {$push:{participants: participants,}}, 
         function(err, particip){
             if(!err){
-                console.log("added participant: ", particip);
+                console.log("added participant: ", participants);
                 res.redirect('back');
             } else {
                 res.send(err);
             }
         });
 });
+
+classesOp.route('/removeParticipant').post((req,res) =>{
+  const className = req.body.className;
+  const groupNumber = req.body.groupNumber;
+  const student = req.body.student;
+  classes.findOneAndUpdate({className: className, groupNumber: groupNumber}, { $pull:{participants: student}} ,function(err, removedpart){
+    if(!err){
+      console.log("removed participant: ", student);
+      res.redirect('back');  
+    } else {
+      res.send(err);
+    }
+
+  })
+})
 
 
 

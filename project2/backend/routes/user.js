@@ -15,6 +15,11 @@ router.route('/').get((req, res) => {
     User.find().then(user => res.json(user)).catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/findOne').get((req, res) => {
+    const login = req.body.login;
+    User.findOne({login: login}).then(user => res.json(user)).catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/register').post((req, res) => {
     
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
@@ -110,11 +115,12 @@ router.route('/updateUser').post((req, res) =>{
     const userName = req.body.login;
     const password = req.body.password;
     const password2 = req.body.password2;
+    const position = req.body.position;
     if(password==password2){
-    User.findOne({login: userName}).then((foundUser) =>{
+    User.findOne({login: userName, position: position}).then((foundUser) =>{
         if(foundUser){
             bcrypt.hash(password, saltRounds, function(err, hash){
-            User.findOneAndUpdate({login: userName}, {password: hash}, 
+            User.findOneAndUpdate({login: userName, position: position}, {password: hash}, 
                 function(err, passw){
                     if(!err){
                         console.log("password changed for user: ", userName);

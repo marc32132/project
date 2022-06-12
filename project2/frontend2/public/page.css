@@ -6,12 +6,20 @@
 {
     height: 90vh;
     border: 2px solid black;
-    width: 600px;
+    /* width: 55%; */
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(194, 193, 193);
     text-align: center;
     overflow: auto;
+    border-radius: 5px;
+}
+tr td select
+{
+    background-color: rgb(194, 193, 193);
+    width:50%;
+    text-align:center;
+    padding:6px;
 }
 body
 {
@@ -58,7 +66,12 @@ table
    
    
 }
-.collapsible {
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+}
+/* .collapsible {
     background-color: #eee;
     color: #444;
     cursor: pointer;
@@ -77,4 +90,4 @@ table
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
-  }
+  } */

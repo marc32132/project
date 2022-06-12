@@ -23,10 +23,17 @@ fetch("/admin/allusers")
                 <td>${user.login}</td>
                 <td class="pass hidden">${user.password}</td>
                 <td>${user.mail}</td>
-                <td>${user.position}</td>
+                <td><form action="/admin/userPosition" method="post">
+                    <input class="hidden" type=text name="login" value="${user.login}">
+                    <select name="position" size="1" onchange="this.form.submit()">
+                    <option>${user.position}</option>
+                    <option>${user.position == "Student"?"Teacher":"Student"}</option>
+                    </select>
+                    </form>
+                </td>
                 <td><form action="/admin/allusersDel" method="post">
                 <input class="hidden" type="text" name="login" value="${user.login}">
-                <input type="submit" value="delete" id="deleted">
+                <input class="btn btn-secondary" type="submit" value="delete" id="deleted">
             </form></td>
             <tr>
             `

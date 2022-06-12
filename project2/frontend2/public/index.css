@@ -4,20 +4,23 @@
 }
 #container
 {
+    font-family: sans-serif;
     margin-top: 250px;
     margin-bottom: 40px;
     border: 2px solid black;
-    width: 500px;
+    /* width: 500px; */
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(194, 193, 193);
-    padding: 50px;
+    padding: 40px;
     padding-top: 20px;
+    border-radius: 5px;
 }
-#header
+.header
 {
     text-align: center;
     font-size: 200%;
+    font-weight: bold;
 }
 p
 {
@@ -52,4 +55,11 @@ body
 {
     width: 50%;
     padding: 1%;
+}
+form select
+{
+    background-color: rgb(194, 193, 193);
+    width:30%;
+    text-align:center;
+    padding:6px;
 }
